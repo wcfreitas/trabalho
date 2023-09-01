@@ -1,2 +1,0 @@
-# trabalho
-#README ADICIONADO
