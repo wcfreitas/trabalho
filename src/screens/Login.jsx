@@ -29,6 +29,8 @@ const LoginScreen = () => {
             placeholder="Email"
             value={email}
             onChangeText={(text) => setEmail(text)}
+            textContentType='emailAddress'
+            placeholderTextColor={'black'}
           />
           <TextInput
             style={styles.input}
@@ -36,6 +38,8 @@ const LoginScreen = () => {
             secureTextEntry={true}
             value={password}
             onChangeText={(text) => setPassword(text)}
+            textContentType='password'
+            placeholderTextColor={'black'}
           />
           <LoginButton title={'Entrar'} onPressButton={handleLogin} />
         </View>
@@ -77,7 +81,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingLeft: 15,
     backgroundColor: 'white',
-
   },
   ViewCenter: {
     flex: 1,
