@@ -1,5 +1,7 @@
+import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Text, TextInput, Button, StyleSheet, SafeAreaView, ImageBackground } from 'react-native';
+import { Text, TextInput, StyleSheet, SafeAreaView, ImageBackground, View } from 'react-native';
+import LoginButton from '../components/LoginButton';
 
 const LoginScreen = () => {
   const [email, setEmail] = useState('');
@@ -15,25 +17,28 @@ const LoginScreen = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar />
       <ImageBackground
-        source={require('../images/fundo.jpg')}
+        source={require('../img/fundo.jpg')}
         style={styles.backgroundImage}
       >
-        <Text style={styles.title}>Tela de Login</Text>
-        <TextInput
-          style={styles.input}
-          placeholder="Email"
-          value={email}
-          onChangeText={(text) => setEmail(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Senha"
-          secureTextEntry={true}
-          value={password}
-          onChangeText={(text) => setPassword(text)}
-        />
-        <Button title="Entrar" onPress={handleLogin} />
+        <Text style={styles.title}>Bem Vindo ao YugiApp Cards</Text>
+        <View style={styles.ViewCenter}>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            value={email}
+            onChangeText={(text) => setEmail(text)}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Senha"
+            secureTextEntry={true}
+            value={password}
+            onChangeText={(text) => setPassword(text)}
+          />
+          <LoginButton title={'Entrar'} onPressButton={handleLogin} />
+        </View>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -48,23 +53,39 @@ const styles = StyleSheet.create({
   backgroundImage: {
     flex: 1,
     width: '100%',
-    justifyContent: 'center',
     alignItems: 'center',
   },
   title: {
-    fontSize: 24,
-    marginBottom: 20,
-    color: 'white', 
+    borderRadius: 10,
+    marginTop: 60,
+    padding: 5,
+    paddingHorizontal: 20,
+    fontSize: 46,
+    fontWeight: 'bold',
+    color: 'white',
+    textShadowColor: 'black',
+    textShadowOffset: { width: 5, height: 3 },
+    textShadowRadius: 10,
+    textAlign: 'center',
   },
   input: {
     width: '80%',
     height: 40,
-    borderColor: 'gray',
+    borderColor: 'black',
+    borderRadius: 20,
     borderWidth: 1,
     marginBottom: 10,
-    paddingLeft: 10,
-    backgroundColor: 'white', 
+    paddingLeft: 15,
+    backgroundColor: 'white',
+
   },
+  ViewCenter: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
 });
 
 export default LoginScreen;
