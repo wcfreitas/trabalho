@@ -1,4 +1,4 @@
-import { FlatList, SafeAreaView } from "react-native";
+import { FlatList, SafeAreaView, ScrollView, Text } from "react-native";
 import axios from 'axios';
 import { useCallback, useEffect, useState } from "react";
 import HomeButton from "../components/HomeButton";
@@ -21,7 +21,7 @@ const Home = () => {
   const fetchCardData = useCallback(async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=49&offset=${page * 49}`);
+      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page * 20}`);
       const jsonData = response.data;
       setCardData(jsonData.data);
     } catch (error) {
@@ -35,12 +35,15 @@ const Home = () => {
     fetchCardData()
   }, [fetchCardData]);
 
-
   return (
     <SafeAreaView>
-      <FlatList>
-        
-      </FlatList>
+      <FlatList
+        data={cardData}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+            <Text>{item.name}</Text>
+        )}
+      />
         {
           page===0 ? <HomeButton title={'Next page'} onPressButton={handleNextPage} /> 
           : <>
