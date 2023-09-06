@@ -1,15 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Text, TextInput, StyleSheet, SafeAreaView, ImageBackground, View } from 'react-native';
-import LoginButton from '../components/LoginButton';
+import { Text, TextInput, StyleSheet, SafeAreaView, ImageBackground, View, Button } from 'react-native'; // Adicionei a importação do Button
+import { useNavigation } from '@react-navigation/native';
 
-const LoginScreen = () => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+
+  const navigation = useNavigation(); 
 
   const handleLogin = () => {
     if (email === "trabalho@trabalho.com" && password === "123456") {
       console.log('Login bem-sucedido');
+      navigation.navigate('Home');
     } else {
       console.log('Login inválido');
     }
@@ -41,7 +44,7 @@ const LoginScreen = () => {
             textContentType='password'
             placeholderTextColor={'black'}
           />
-          <LoginButton title={'Entrar'} onPressButton={handleLogin} />
+          <Button title={'Entrar'} onPress={handleLogin} />
         </View>
       </ImageBackground>
     </SafeAreaView>
@@ -88,7 +91,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-
 });
 
-export default LoginScreen;
+export default Login;

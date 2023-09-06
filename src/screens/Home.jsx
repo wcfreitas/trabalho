@@ -1,10 +1,9 @@
-import { FlatList, SafeAreaView, ScrollView, Text } from "react-native";
+import React, { useEffect, useState } from 'react';
+import { FlatList, SafeAreaView, Text, Button, ActivityIndicator, View } from 'react-native';
 import axios from 'axios';
-import { useCallback, useEffect, useState } from "react";
-import HomeButton from "../components/HomeButton";
 
 const Home = () => {
-  const [cardData, setCardData] = useState();
+  const [cardData, setCardData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
 
@@ -18,7 +17,7 @@ const Home = () => {
     setPage(prevPage => prevPage + 1);
   }
 
-  const fetchCardData = useCallback(async () => {
+  const fetchCardData = async () => {
     try {
       setLoading(true);
       const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page * 20}`);
@@ -29,30 +28,37 @@ const Home = () => {
     } finally {
       setLoading(false);
     }
-  }, [page]);
+  };
 
   useEffect(() => {
-    fetchCardData()
-  }, [fetchCardData]);
+    fetchCardData();
+  }, [page]);
 
   return (
     <SafeAreaView>
-      <FlatList
-        data={cardData}
-        keyExtractor={item => item.id}
-        renderItem={({ item }) => (
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <FlatList
+          data={cardData}
+          keyExtractor={item => item.id}
+          renderItem={({ item }) => (
             <Text>{item.name}</Text>
-        )}
-      />
-        {
-          page===0 ? <HomeButton title={'Next page'} onPressButton={handleNextPage} /> 
-          : <>
-            <HomeButton title={'Next page'} onPressButton={handleNextPage} /> 
-            <HomeButton title={'Previous page'} onPressButton={handlePrevPage} />
+          )}
+        />
+      )}
+      <View>
+        {page === 0 ? (
+          <Button title={'Next page'} onPress={handleNextPage} />
+        ) : (
+          <>
+            <Button title={'Previous page'} onPress={handlePrevPage} />
+            <Button title={'Next page'} onPress={handleNextPage} />
           </>
-        }
+        )}
+      </View>
     </SafeAreaView>
   );
-}
+};
 
 export default Home;
