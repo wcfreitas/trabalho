@@ -1,6 +1,6 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Text, TextInput, StyleSheet, SafeAreaView, ImageBackground, View, Button } from 'react-native'; // Adicionei a importação do Button
+import { Text, TextInput, StyleSheet, SafeAreaView, ImageBackground, View, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
