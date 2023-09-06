@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, Text, Button, ActivityIndicator, View } from 'react-native';
+import { FlatList, SafeAreaView, Text, ActivityIndicator, View } from 'react-native';
 import axios from 'axios';
+import HomeButton from '../components/HomeButton';
 
 const Home = () => {
   const [cardData, setCardData] = useState([]);
@@ -49,11 +50,11 @@ const Home = () => {
       )}
       <View>
         {page === 0 ? (
-          <Button title={'Next page'} onPress={handleNextPage} />
+          <HomeButton title={'Next page'} onPressButton={handleNextPage} />
         ) : (
           <>
-            <Button title={'Previous page'} onPress={handlePrevPage} />
-            <Button title={'Next page'} onPress={handleNextPage} />
+            <HomeButton title={'Previous page'} onPressButton={handlePrevPage} />
+            <HomeButton title={'Next page'} onPressButton={handleNextPage} />
           </>
         )}
       </View>
