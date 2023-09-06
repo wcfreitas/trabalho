@@ -39,7 +39,7 @@ const Home = () => {
   return (
     <SafeAreaView>
       <FlatList>
-
+        
       </FlatList>
         {
           page===0 ? <HomeButton title={'Next page'} onPressButton={handleNextPage} /> 
