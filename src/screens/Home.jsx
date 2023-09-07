@@ -52,7 +52,10 @@ const Home = () => {
           data={cardData}
           keyExtractor={item => item.id}
           renderItem={({ item }) => (
-            <Text>{item.name}</Text>
+            <View style={style.containerCards}>
+              <Text style={style.textCards}>{item.name}</Text>
+              <Text style={style.textCards}>{item.type}</Text>
+            </View>
           )}
         />
       )}
@@ -95,6 +98,20 @@ const style = StyleSheet.create({
     fontSize: 50,
     fontWeight: 'bold',
     fontStyle: 'italic',
+  },
+  containerCards: {
+    opacity: 0.8,
+    padding: 10,
+    backgroundColor: '#e5a040',
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#000',
+    marginVertical: 10,
+  },
+  textCards: {
+    fontSize: 12,
+    fontWeight: 'bold',
+    color: '#FFF',
   }
 })
 
