@@ -9,12 +9,12 @@ const HomeButton = ({title, onPressButton}) => {
             borderRadius: 30,
             borderWidth: 1,
             height: 40,
-            width: 200,
-            backgroundColor: '#130c23',
+            width: 160,
+            backgroundColor: '#FAA138',
             alignItems: 'center',
         },
         textButton: {
-            color: 'white',
+            color: '#000',
             fontSize: 18
         }
     })

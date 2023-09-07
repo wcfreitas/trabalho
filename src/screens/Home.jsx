@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, Text, ActivityIndicator, View } from 'react-native';
+import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet, ImageBackground } from 'react-native';
 import axios from 'axios';
 import HomeButton from '../components/HomeButton';
 
@@ -36,9 +36,17 @@ const Home = () => {
   }, [page]);
 
   return (
-    <SafeAreaView>
-      {loading ? (
-        <ActivityIndicator size="large" color="#0000ff" />
+    <SafeAreaView style={style.containerSafe}>
+      <ImageBackground
+        source={require('../img/BackgroundHome.webp')}
+        style={style.imageBG}
+      >
+        {loading ? (
+          <View style={style.loading}>
+            <Text style={style.textLoading}>Loading...</Text>
+            <ActivityIndicator size="large" color="#c73709"/>
+          </View>
+        
       ) : (
         <FlatList
           data={cardData}
@@ -48,7 +56,7 @@ const Home = () => {
           )}
         />
       )}
-      <View>
+      <View style={style.contButtons}>
         {page === 0 ? (
           <HomeButton title={'Next page'} onPressButton={handleNextPage} />
         ) : (
@@ -58,8 +66,36 @@ const Home = () => {
           </>
         )}
       </View>
+      </ImageBackground>
     </SafeAreaView>
   );
 };
+
+const style = StyleSheet.create({
+  imageBG: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center', 
+  },
+  containerSafe: {
+    flex: 1,
+  },
+  contButtons: {
+    flexDirection: 'row',
+    alignContent: 'center',
+  },
+  loading: {
+    flex: 1,
+    justifyContent: 'center',
+    margin: 50,
+  },
+  textLoading: {
+    color: '#c73709',
+    textAlign: 'center',
+    fontSize: 50,
+    fontWeight: 'bold',
+    fontStyle: 'italic',
+  }
+})
 
 export default Home;
