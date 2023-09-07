@@ -10,7 +10,7 @@ const Login = () => {
   const navigation = useNavigation(); 
 
   const handleLogin = () => {
-    if (email === "trabalho@trabalho.com" && password === "123456") {
+    if (email === "t@t.com" && password === "1") {
       console.log('Login bem-sucedido');
       navigation.navigate('Home');
     } else {

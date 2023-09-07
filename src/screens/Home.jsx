@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet, ImageBackground } from 'react-native';
+import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet, ImageBackground, Image } from 'react-native';
 import axios from 'axios';
 import HomeButton from '../components/HomeButton';
 
@@ -55,6 +55,7 @@ const Home = () => {
             <View style={style.containerCards}>
               <Text style={style.textCards}>{item.name}</Text>
               <Text style={style.textCards}>{item.type}</Text>
+              <Image style={style.imageCard} source={item.image_url}/>
             </View>
           )}
         />
@@ -79,6 +80,9 @@ const style = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center', 
+  },
+  imageCard:{
+    flex: 1,
   },
   containerSafe: {
     flex: 1,
