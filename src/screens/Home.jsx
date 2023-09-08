@@ -1,12 +1,16 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet, ImageBackground, Image } from 'react-native';
+import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet, 
+  ImageBackground, Image , TouchableOpacity} from 'react-native';
 import axios from 'axios';
 import HomeButton from '../components/HomeButton';
+import { useNavigation } from '@react-navigation/native';
 
 const Home = () => {
   const [cardData, setCardData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(0);
+
+  const navigation = useNavigation();
 
   const handlePrevPage = () => {
     if (page > 0) {
@@ -35,6 +39,10 @@ const Home = () => {
     fetchCardData();
   }, [page]);
 
+  const handleCardPress = () => {
+    navigation.navigate('DescCards');
+  }
+
   return (
     <SafeAreaView style={style.containerSafe}>
       <ImageBackground
@@ -52,11 +60,13 @@ const Home = () => {
           data={cardData}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <View style={style.containerCards}>
-              <Image style={style.imageCard} source={{ uri: item.card_images[0].image_url }} />
-              <Text style={style.textCards}>{item.name}</Text>
-              <Text style={style.textCards}>{item.type}</Text>
-            </View>
+            <TouchableOpacity onPress={handleCardPress}> 
+              <View style={style.containerCards}>
+                <Image style={style.imageCard} source={{ uri: item.card_images[0].image_url }} />
+                <Text style={style.textCards}>{item.name}</Text>
+                <Text style={style.textCards}>{item.type}</Text>
+              </View>
+              </TouchableOpacity>
           )}
         />
       )}
