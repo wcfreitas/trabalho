@@ -52,14 +52,13 @@ const Home = () => {
           data={cardData}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-          <View style={style.containerCards}>
-          <Image style={style.imageCard} source={{ uri: item.card_images[0].image_url }} />
-          <Text style={style.textCards}>{item.name}</Text>
-          <Text style={style.textCards}>{item.type}</Text>
-        </View>
-  )}
-/>
-
+            <View style={style.containerCards}>
+              <Image style={style.imageCard} source={{ uri: item.card_images[0].image_url }} />
+              <Text style={style.textCards}>{item.name}</Text>
+              <Text style={style.textCards}>{item.type}</Text>
+            </View>
+          )}
+        />
       )}
       <View style={style.contButtons}>
         {page === 0 ? (
@@ -84,6 +83,8 @@ const style = StyleSheet.create({
   },
   imageCard:{
     flex: 1,
+    height: 300, 
+    resizeMode: 'contain',
   },
   containerSafe: {
     flex: 1,
