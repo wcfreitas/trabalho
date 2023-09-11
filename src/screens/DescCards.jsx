@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View, Animated, StyleSheet, ImageBackground, Image } from "react-native";
+import { SafeAreaView, Text, View, Animated, StyleSheet, ImageBackground, Image, ScrollView, TouchableOpacity } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from 'react-native';
@@ -73,41 +73,61 @@ const DescCards = ({ route }) => {
                 ) : (
                     <View>
                         {cardData.map((card, index) => (
-                            <View key={index}>
-                                <Image style={style.img} source={{ uri: card.card_images[0].image_url}}/>
-                                <Text style={style.textCSS}>Nome: {card.name}</Text>
-                                <Text style={style.textCSS}>Tipo: {card.type}</Text>
-                                <View>
+                            <ScrollView key={index}>
+                                <TouchableOpacity>
+                                    <Image style={style.img} source={{ uri: card.card_images[0].image_url}}/>
+                                </TouchableOpacity>
+                                <View style={style.containerCSS}>
+                                    <Text style={style.textCSS}>Nome: {card.name}</Text>
+                                    <Text style={style.textCSS}>Tipo: {card.type}</Text>
+                                    <View>
+                                        {
+                                            card.type !== 'Spell Card' && card.type !== 'Trap Card' 
+                                            ? (<Text style={style.textCSS}>Atributo: {card.attribute}</Text>)
+                                            : (<></>)
+                                        }
+                                        <View>
+                                            {
+                                                card.archetype != null ? (<Text style={style.textCSS}>Arquétipo: {card.archetype}</Text>)
+                                                : (<></>)
+                                            }
+                                        </View>
+                                        <Text style={style.textCSS}>Raça: {card.race}</Text>
+                                    </View>
                                     {
-                                        card.type !== 'Spell Card' && card.type !== 'Trap Card' 
-                                        ? (<Text style={style.textCSS}>Atributo: {card.attribute}</Text>)
-                                        : (<></>)
-                                    }
-                                    <Text style={style.textCSS}>Arquétipo: {card.archetype}</Text>
-                                    <Text style={style.textCSS}>Raça: {card.race}</Text>
-                                </View>
-                                {
-                                    card.type !== 'Spell Card' && card.type !== 'Trap Card' ? (
+                                        card.type !== 'Spell Card' && card.type !== 'Trap Card' ? (
                                             <View>
-                                                <Text style={style.textCSS}>Ataque: {card.atk}</Text>
-                                                <Text style={style.textCSS}>Defesa: {card.def}</Text>
-                                                <View>
-                                                {
-                                                    card.level != null ? (<Text style={style.textCSS}>Level: {card.level}</Text>)
-                                                                        : (<Text style={style.textCSS}>Link: {card.linkval}</Text>)
-                                                }
+                                                <View style={style.rowStatus}>
+                                                    <View>
+                                                        {
+                                                            card.atk != null ? (<Text style={[style.textCSS, style.textRowPadi]}>Ataque: {card.atk}</Text>)
+                                                            : (<></>)
+                                                        }
+                                                    </View>
+                                                    <View>
+                                                        {
+                                                            card.def != null ? (<Text style={[style.textCSS, style.textRowPadi]}>Defesa: {card.def}</Text>)
+                                                            : (<></>)
+                                                        }
+                                                    </View>
+                                                    <View>
+                                                        {
+                                                         card.level != null ? (<Text style={style.textCSS}>Level: {card.level}</Text>)
+                                                                            : (<Text style={style.textCSS}>Link: {card.linkval}</Text>)
+                                                        }
+                                                    </View>
                                                 </View>
                                             </View>
-                                    )
-                                    : (<></>)
-                                }
-                                <View>
-                                   <Text style={style.textCSS}>Descrição: {card.desc}</Text> 
+                                        )
+                                        : (<></>)
+                                    }
+                                    <View>
+                                        <Text style={[style.textCSS, style.descJust]}>Descrição: {card.desc}</Text> 
+                                    </View>
                                 </View>
-                            </View>
+                            </ScrollView>
                         ))}
                     </View>
-                    
                 )}
             </ImageBackground>
         </SafeAreaView>
@@ -145,6 +165,30 @@ const style = StyleSheet.create({
     },
     textCSS: {
         color: '#FFF',
+        paddingVertical: 4,
+    },
+    containerCSS: {
+        flex: 1,
+        marginTop: 520,
+        paddingHorizontal: 12,
+        paddingVertical: 12,
+        marginHorizontal: 10,
+        borderRadius: 20,
+        borderWidth: 1,
+        backgroundColor: '#4f181b',
+        height: '100%',
+        marginBottom: 20,
+        opacity: 0.8,
+    },
+    rowStatus: {
+        flex: 1,
+        flexDirection: 'row',
+    },
+    textRowPadi: {
+        paddingRight: 10,
+    },
+    descJust: {
+        textAlign: 'justify',
     }
 })
 
