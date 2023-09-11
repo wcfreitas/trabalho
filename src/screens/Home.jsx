@@ -40,8 +40,8 @@ const Home = () => {
     fetchCardData();
   }, [page]);
 
-  const handleCardPress = () => {
-    navigation.navigate('DescCards');
+  const handleCardPress = (cardId) => {
+    navigation.navigate('DescCards', { id: cardId });
   }
 
   return (
@@ -64,7 +64,7 @@ const Home = () => {
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
               <View style={style.containerCards}>
-                <TouchableOpacity onPress={handleCardPress}>
+                <TouchableOpacity onPress={() => handleCardPress(item.id)}>
                   <Animated.Image style={[style.imageCard]} source={{ uri: item.card_images[0].image_url}} />
                   <View style={style.containerTextCards}>
                     <Text style={style.textCards}>{item.name}</Text>

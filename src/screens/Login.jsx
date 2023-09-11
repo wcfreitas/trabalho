@@ -25,6 +25,7 @@ const Login = () => {
         source={require('../img/fundo.jpg')}
         style={styles.backgroundImage}
       >
+        <Text style={styles.OpacityBG}>Bem Vindo ao YugiApp Cards</Text>
         <Text style={styles.title}>Bem Vindo ao YugiApp Cards</Text>
         <View style={styles.ViewCenter}>
           <TextInput
@@ -91,6 +92,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  OpacityBG: {
+    position: 'absolute',
+    borderRadius: 10,
+    marginTop: 75,
+    width: 310,
+    height: 105,
+    color: 'transparent',
+    backgroundColor: '#586660',
+    opacity: 0.4,
+  }
 });
 
 export default Login;
