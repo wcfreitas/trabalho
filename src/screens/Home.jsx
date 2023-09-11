@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet, 
-  ImageBackground, Image , TouchableOpacity} from 'react-native';
+  ImageBackground, Image , TouchableOpacity, Animated} from 'react-native';
 import axios from 'axios';
 import HomeButton from '../components/HomeButton';
 import { useNavigation } from '@react-navigation/native';
+
 
 const Home = () => {
   const [cardData, setCardData] = useState([]);
@@ -25,7 +26,7 @@ const Home = () => {
   const fetchCardData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page * 20}`);
+      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page * 40}`);
       const jsonData = response.data;
       setCardData(jsonData.data);
     } catch (error) {
@@ -57,16 +58,20 @@ const Home = () => {
         
       ) : (
         <FlatList
+          horizontal={false}
+          numColumns={2}
           data={cardData}
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
-            <TouchableOpacity onPress={handleCardPress}> 
               <View style={style.containerCards}>
-                <Image style={style.imageCard} source={{ uri: item.card_images[0].image_url }} />
-                <Text style={style.textCards}>{item.name}</Text>
-                <Text style={style.textCards}>{item.type}</Text>
+                <TouchableOpacity onPress={handleCardPress}>
+                  <Animated.Image style={[style.imageCard]} source={{ uri: item.card_images[0].image_url}} />
+                  <View style={style.containerTextCards}>
+                    <Text style={style.textCards}>{item.name}</Text>
+                    <Text style={style.textCards}>{item.type}</Text>
+                  </View>
+                </TouchableOpacity>
               </View>
-              </TouchableOpacity>
           )}
         />
       )}
@@ -92,9 +97,10 @@ const style = StyleSheet.create({
     alignItems: 'center', 
   },
   imageCard:{
-    flex: 1,
-    height: 300, 
-    resizeMode: 'contain',
+    marginTop: 5,
+    width: '90%',
+    height: '81%',
+    alignSelf: 'center',
   },
   containerSafe: {
     flex: 1,
@@ -116,19 +122,30 @@ const style = StyleSheet.create({
     fontStyle: 'italic',
   },
   containerCards: {
+    width: 180,
+    height: 300,
     opacity: 0.8,
-    padding: 10,
     backgroundColor: '#e5a040',
     borderRadius: 10,
     borderWidth: 1,
     borderColor: '#000',
     marginVertical: 10,
+    marginHorizontal: 5,
+    justifyContent: 'center',
+    alignContent: 'center',
+  },
+  containerTextCards: {
+    marginTop: 4,
+    width: 180,
+    alignSelf: 'center',
   },
   textCards: {
+    textAlign: 'center',
+    alignSelf: 'center',
     fontSize: 12,
     fontWeight: 'bold',
     color: '#FFF',
-  }
+  },
 })
 
 export default Home;
