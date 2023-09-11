@@ -26,7 +26,7 @@ const Home = () => {
   const fetchCardData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page * 40}&language=pt`);
+      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=100&offset=${page * 100}&language=pt`);
       const jsonData = response.data;
       setCardData(jsonData.data);
     } catch (error) {
