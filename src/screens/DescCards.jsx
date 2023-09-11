@@ -3,6 +3,7 @@ import { SafeAreaView, Text, View, Animated, StyleSheet, ImageBackground, Image,
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from 'react-native';
+import DescButton from "../components/DescButton";
 
 const DescCards = ({ route }) => {
     const [cardData, setCardData] = useState([]);
@@ -127,6 +128,7 @@ const DescCards = ({ route }) => {
                                 </View>
                             </ScrollView>
                         ))}
+                        <DescButton title={'Back Page'} onPressButton={} />
                     </View>
                 )}
             </ImageBackground>
