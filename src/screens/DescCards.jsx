@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View, Animated, StyleSheet, ImageBackground } from "react-native";
+import { SafeAreaView, Text, View, Animated, StyleSheet, ImageBackground, Image } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from 'react-native';
@@ -15,7 +15,7 @@ const DescCards = ({ route }) => {
     const fetchCardData = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?id=${id}`);
+            const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?id=${id}&language=pt`);
             const jsonData = response.data;
             setCardData(jsonData.data);
         } catch (error) {
@@ -72,7 +72,39 @@ const DescCards = ({ route }) => {
                     </View>
                 ) : (
                     <View>
-                        <Text>Name: {cardData.name}</Text>
+                        {cardData.map((card, index) => (
+                            <View key={index}>
+                                <Image style={style.img} source={{ uri: card.card_images[0].image_url}}/>
+                                <Text>Nome: {card.name}</Text>
+                                <Text>Tipo: {card.type}</Text>
+                                <View>
+                                    <Text>Atributo: {card.attribute}</Text>
+                                    {
+                                        card.archetype != null ? (<Text>Arquétipo: {card.archetype}</Text>)
+                                        : (<></>)
+                                    }
+                                    <Text>Raça: {card.race}</Text>
+                                </View>
+                                {
+                                    card.type != 'Spell Card' || 'Trap Card' ? (
+                                            <View>
+                                                <Text>Ataque: {card.atk}</Text>
+                                                <Text>Defesa: {card.def}</Text>
+                                                <View>
+                                                {
+                                                    card.level != null ? (<Text>Level: {card.level}</Text>)
+                                                                        : (<Text>Link: {card.linkval}</Text>)
+                                                }
+                                                </View>
+                                            </View>
+                                    )
+                                    : (<></>)
+                                }
+                                <View>
+                                   <Text>Descrição: {card.desc}</Text> 
+                                </View>
+                            </View>
+                        ))}
                     </View>
                     
                 )}
@@ -102,6 +134,14 @@ const style = StyleSheet.create({
         fontWeight: 'bold',
         fontStyle: 'italic',
     },
+    img: {
+        width: 450,
+        height: 450,
+        resizeMode: 'contain',
+        position: 'absolute',
+        alignSelf: 'center',
+        marginTop: 60,
+    }
 })
 
 export default DescCards;

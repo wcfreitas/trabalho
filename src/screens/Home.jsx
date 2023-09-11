@@ -26,7 +26,7 @@ const Home = () => {
   const fetchCardData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page * 40}`);
+      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=20&offset=${page * 40}&language=pt`);
       const jsonData = response.data;
       setCardData(jsonData.data);
     } catch (error) {
@@ -101,6 +101,7 @@ const style = StyleSheet.create({
     width: '90%',
     height: '81%',
     alignSelf: 'center',
+    resizeMode: 'contain'
   },
   containerSafe: {
     flex: 1,
