@@ -62,7 +62,7 @@ const DescCards = ({ route }) => {
     return (
         <SafeAreaView style={style.containerSafe}>
             <ImageBackground
-                source={require('../img/BackgroundHome.webp')}
+                source={require('../img/DescImgBK.jpeg')}
                 style={style.imageBG}
             >
                 {loading ? (
@@ -75,25 +75,26 @@ const DescCards = ({ route }) => {
                         {cardData.map((card, index) => (
                             <View key={index}>
                                 <Image style={style.img} source={{ uri: card.card_images[0].image_url}}/>
-                                <Text>Nome: {card.name}</Text>
-                                <Text>Tipo: {card.type}</Text>
+                                <Text style={style.textCSS}>Nome: {card.name}</Text>
+                                <Text style={style.textCSS}>Tipo: {card.type}</Text>
                                 <View>
-                                    <Text>Atributo: {card.attribute}</Text>
                                     {
-                                        card.archetype != null ? (<Text>Arquétipo: {card.archetype}</Text>)
+                                        card.type !== 'Spell Card' && card.type !== 'Trap Card' 
+                                        ? (<Text style={style.textCSS}>Atributo: {card.attribute}</Text>)
                                         : (<></>)
                                     }
-                                    <Text>Raça: {card.race}</Text>
+                                    <Text style={style.textCSS}>Arquétipo: {card.archetype}</Text>
+                                    <Text style={style.textCSS}>Raça: {card.race}</Text>
                                 </View>
                                 {
-                                    card.type != 'Spell Card' || 'Trap Card' ? (
+                                    card.type !== 'Spell Card' && card.type !== 'Trap Card' ? (
                                             <View>
-                                                <Text>Ataque: {card.atk}</Text>
-                                                <Text>Defesa: {card.def}</Text>
+                                                <Text style={style.textCSS}>Ataque: {card.atk}</Text>
+                                                <Text style={style.textCSS}>Defesa: {card.def}</Text>
                                                 <View>
                                                 {
-                                                    card.level != null ? (<Text>Level: {card.level}</Text>)
-                                                                        : (<Text>Link: {card.linkval}</Text>)
+                                                    card.level != null ? (<Text style={style.textCSS}>Level: {card.level}</Text>)
+                                                                        : (<Text style={style.textCSS}>Link: {card.linkval}</Text>)
                                                 }
                                                 </View>
                                             </View>
@@ -101,7 +102,7 @@ const DescCards = ({ route }) => {
                                     : (<></>)
                                 }
                                 <View>
-                                   <Text>Descrição: {card.desc}</Text> 
+                                   <Text style={style.textCSS}>Descrição: {card.desc}</Text> 
                                 </View>
                             </View>
                         ))}
@@ -141,6 +142,9 @@ const style = StyleSheet.create({
         position: 'absolute',
         alignSelf: 'center',
         marginTop: 60,
+    },
+    textCSS: {
+        color: '#FFF',
     }
 })
 
