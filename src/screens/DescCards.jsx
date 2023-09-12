@@ -34,22 +34,14 @@ const DescCards = ({ route }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const flipImageAnimation = () => {
-        if (isFlipped) {
-            Animated.spring(animatedValue, {
-                toValue: 0,
-                tension: 10,
-                friction: 8,
-                useNativeDriver: true,
-            }).start();
-        } else {
             Animated.spring(animatedValue, {
                 toValue: 180,
                 tension: 10,
                 friction: 8,
                 useNativeDriver: true,
             }).start(() => {
+                setIsFlipped(!isFlipped);
             });
-        }
     };
 
     const setInterpolate = animatedValue.interpolate({
@@ -60,6 +52,7 @@ const DescCards = ({ route }) => {
     const rotateYAnimatedStyle = {
         transform: [{ rotateY: setInterpolate }],
     };
+
     return (
         <SafeAreaView style={style.containerSafe}>
             <ImageBackground
@@ -75,8 +68,11 @@ const DescCards = ({ route }) => {
                     <View>
                         {cardData.map((card, index) => (
                             <ScrollView key={index}>
-                                <TouchableOpacity>
-                                    <Image style={style.img} source={{ uri: card.card_images[0].image_url}}/>
+                                <TouchableOpacity onPress={flipImageAnimation}>
+                                    {
+                                        isFlipped === false ? (<Animated.Image style={[style.img, rotateYAnimatedStyle]} source={require('../img/ReverseCard.jpg')} />)
+                                        : (<Animated.Image style={[style.img, rotateYAnimatedStyle]} source={{ uri: card.card_images[0].image_url}}/>)
+                                    }
                                 </TouchableOpacity>
                                 <View style={style.containerCSS}>
                                     <Text style={style.textCSS}>Nome: {card.name}</Text>
