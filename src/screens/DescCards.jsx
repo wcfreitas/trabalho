@@ -128,7 +128,7 @@ const DescCards = ({ route }) => {
                                 </View>
                             </ScrollView>
                         ))}
-                        <DescButton title={'Back Page'} onPressButton={} />
+                        {/* <DescButton title={'Back Page'} onPressButton={} /> */}
                     </View>
                 )}
             </ImageBackground>
