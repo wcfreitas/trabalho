@@ -11,13 +11,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Login">
-        <Stack.Screen 
+        {/* <Stack.Screen 
         options={{
           headerShown: false,
           headerTransparent: true,
           title: null,
         }}
-        name="Login" component={Login}/>
+        name="Login" component={Login}/> */}
         <Stack.Screen 
         options={{
           headerShown: false,
