@@ -4,7 +4,7 @@ import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet,
 import axios from 'axios';
 import HomeButton from '../components/HomeButton';
 import { useNavigation } from '@react-navigation/native';
-
+import Icon from 'react-native-vector-icons/FontAwesome'; // Certifique-se de que o pacote 'react-native-vector-icons' esteja instalado
 
 const Home = () => {
   const [cardData, setCardData] = useState([]);
@@ -21,6 +21,10 @@ const Home = () => {
 
   const handleNextPage = () => {
     setPage(prevPage => prevPage + 1);
+  }
+
+  const handlePriceButton = () => {
+    navigation.navigate('PriceCards'); // Navegue para a página "PriceCards" quando o botão "$" for clicado
   }
 
   const fetchCardData = async () => {
@@ -84,6 +88,8 @@ const Home = () => {
             <HomeButton title={'Next page'} onPressButton={handleNextPage} />
           </>
         )}
+        {/* Botão "$" ativo o tempo todo */}
+        <HomeButton title={'$'} onPressButton={handlePriceButton} />
       </View>
       </ImageBackground>
     </SafeAreaView>
