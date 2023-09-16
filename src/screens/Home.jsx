@@ -1,6 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet, 
-  ImageBackground, Image , TouchableOpacity, Animated} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import {
+  FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet,
+  ImageBackground, TouchableOpacity, Animated
+} from 'react-native';
 import axios from 'axios';
 import HomeButton from '../components/HomeButton';
 import { useNavigation } from '@react-navigation/native';
@@ -23,7 +25,8 @@ const Home = () => {
   }
 
   const handlePriceButton = () => {
-    navigation.navigate('PriceCards');}
+    navigation.navigate('PriceCards');
+  }
 
   const fetchCardData = async () => {
     try {
@@ -56,40 +59,42 @@ const Home = () => {
         {loading ? (
           <View style={style.loading}>
             <Text style={style.textLoading}>Loading...</Text>
-            <ActivityIndicator size="large" color="#c73709"/>
+            <ActivityIndicator size="large" color="#c73709" />
           </View>
-        
-      ) : (
-        <FlatList
-          horizontal={false}
-          numColumns={2}
-          data={cardData}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({ item }) => (
+
+        ) : (
+          <FlatList
+            horizontal={false}
+            numColumns={2}
+            data={cardData}
+            keyExtractor={item => item.id.toString()}
+            renderItem={({ item }) => (
               <View style={style.containerCards}>
                 <TouchableOpacity onPress={() => handleCardPress(item.id)}>
-                  <Animated.Image style={[style.imageCard]} source={{ uri: 
-                    item.card_images[0].image_url}} />
+                  <Animated.Image style={[style.imageCard]} source={{
+                    uri:
+                      item.card_images[0].image_url
+                  }} />
                   <View style={style.containerTextCards}>
                     <Text style={style.textCards}>{item.name}</Text>
                     <Text style={style.textCards}>{item.type}</Text>
                   </View>
                 </TouchableOpacity>
               </View>
-          )}
-        />
-      )}
-      <View style={style.contButtons}>
-        {page === 0 ? (
-          <HomeButton title={'Next page'} onPressButton={handleNextPage} />
-        ) : (
-          <>
-            <HomeButton title={'Previous page'} onPressButton={handlePrevPage} />
-            <HomeButton title={'Next page'} onPressButton={handleNextPage} />
-          </>
+            )}
+          />
         )}
-        <HomeButton title={'$'} onPressButton={handlePriceButton} />
-      </View>
+        <View style={style.contButtons}>
+          {page === 0 ? (
+            <HomeButton title={'Next page'} onPressButton={handleNextPage} />
+          ) : (
+            <>
+              <HomeButton title={'Previous page'} onPressButton={handlePrevPage} />
+              <HomeButton title={'Next page'} onPressButton={handleNextPage} />
+            </>
+          )}
+          <HomeButton title={'$'} onPressButton={handlePriceButton} />
+        </View>
       </ImageBackground>
     </SafeAreaView>
   );
@@ -99,9 +104,9 @@ const style = StyleSheet.create({
   imageBG: {
     flex: 1,
     width: '100%',
-    alignItems: 'center', 
+    alignItems: 'center',
   },
-  imageCard:{
+  imageCard: {
     marginTop: 5,
     width: '90%',
     height: '81%',

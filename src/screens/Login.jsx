@@ -1,13 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { Text, TextInput, StyleSheet, SafeAreaView, ImageBackground, View, Button } from 'react-native';
+import {
+  Text, TextInput, StyleSheet, SafeAreaView,
+  ImageBackground, View, Button
+} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const navigation = useNavigation(); 
+  const navigation = useNavigation();
 
   const handleLogin = () => {
     if (email === "t@t.com" && password === "1") {
