@@ -4,7 +4,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Login from './src/screens/Login';
 import Home from './src/screens/Home';
 import DescCards from './src/screens/DescCards';
-import PriceCards from './src/screens/PriceCards'; // Importe a tela de Price Cards
+import PriceCards from './src/screens/PriceCards';
 
 const Stack = createStackNavigator();
 

@@ -43,14 +43,10 @@ const PriceCards = () => {
     fetchCardData();
   }, [page]);
 
-  const handleCardPress = (cardId) => {
-    navigation.navigate('DescCards', { id: cardId });
-  }
-
   return (
     <SafeAreaView style={style.containerSafe}>
       <ImageBackground
-        source={require('../img/BackgroundHome.webp')}
+        source={require('../img/mercador.jpg')}
         style={style.imageBG}
       >
         {loading ? (
@@ -67,13 +63,14 @@ const PriceCards = () => {
           keyExtractor={item => item.id.toString()}
           renderItem={({ item }) => (
               <View style={style.containerCards}>
-                <TouchableOpacity onPress={() => handleCardPress(item.id)}>
                   <Animated.Image style={[style.imageCard]} source={{ uri: item.card_images[0].image_url}} />
                   <View style={style.containerTextCards}>
-                    <Text style={style.textCards}>{item.name}</Text>
-                    <Text style={style.textCards}>{item.type}</Text>
+                  <Text style={style.textCards}>Cardmarket Price: ${item.card_prices[0].cardmarket_price}</Text>
+                    <Text style={style.textCards}>TCGPlayer Price: ${item.card_prices[0].tcgplayer_price}</Text>
+                    <Text style={style.textCards}>eBay Price: ${item.card_prices[0].ebay_price}</Text>
+                    <Text style={style.textCards}>Amazon Price: ${item.card_prices[0].amazon_price}</Text>
+                    <Text style={style.textCards}>Coolstuffinc Price: ${item.card_prices[0].coolstuffinc_price}</Text>
                   </View>
-                </TouchableOpacity>
               </View>
           )}
         />
@@ -129,7 +126,7 @@ const style = StyleSheet.create({
   },
   containerCards: {
     width: 180,
-    height: 300,
+    height: 400,
     opacity: 0.8,
     backgroundColor: '#e5a040',
     borderRadius: 10,

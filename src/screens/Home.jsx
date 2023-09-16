@@ -4,7 +4,6 @@ import { FlatList, SafeAreaView, Text, ActivityIndicator, View, StyleSheet,
 import axios from 'axios';
 import HomeButton from '../components/HomeButton';
 import { useNavigation } from '@react-navigation/native';
-import Icon from 'react-native-vector-icons/FontAwesome'; // Certifique-se de que o pacote 'react-native-vector-icons' esteja instalado
 
 const Home = () => {
   const [cardData, setCardData] = useState([]);
@@ -24,13 +23,13 @@ const Home = () => {
   }
 
   const handlePriceButton = () => {
-    navigation.navigate('PriceCards'); // Navegue para a página "PriceCards" quando o botão "$" for clicado
-  }
+    navigation.navigate('PriceCards');}
 
   const fetchCardData = async () => {
     try {
       setLoading(true);
-      const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=100&offset=${page * 100}&language=pt`);
+      const response = await axios.
+        get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?num=100&offset=${page * 100}&language=pt`);
       const jsonData = response.data;
       setCardData(jsonData.data);
     } catch (error) {
@@ -69,7 +68,8 @@ const Home = () => {
           renderItem={({ item }) => (
               <View style={style.containerCards}>
                 <TouchableOpacity onPress={() => handleCardPress(item.id)}>
-                  <Animated.Image style={[style.imageCard]} source={{ uri: item.card_images[0].image_url}} />
+                  <Animated.Image style={[style.imageCard]} source={{ uri: 
+                    item.card_images[0].image_url}} />
                   <View style={style.containerTextCards}>
                     <Text style={style.textCards}>{item.name}</Text>
                     <Text style={style.textCards}>{item.type}</Text>
@@ -88,7 +88,6 @@ const Home = () => {
             <HomeButton title={'Next page'} onPressButton={handleNextPage} />
           </>
         )}
-        {/* Botão "$" ativo o tempo todo */}
         <HomeButton title={'$'} onPressButton={handlePriceButton} />
       </View>
       </ImageBackground>

@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
-import { SafeAreaView, Text, View, Animated, StyleSheet, ImageBackground, Image, ScrollView, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
+import { SafeAreaView, Text, View, Animated, StyleSheet, ImageBackground, 
+    ScrollView, TouchableOpacity } from "react-native";
 import axios from "axios";
 import { useNavigation } from "@react-navigation/native";
 import { ActivityIndicator } from 'react-native';
-import DescButton from "../components/DescButton";
+import Icon from 'react-native-vector-icons/FontAwesome'; 
 
 const DescCards = ({ route }) => {
     const [cardData, setCardData] = useState([]);
@@ -16,7 +17,8 @@ const DescCards = ({ route }) => {
     const fetchCardData = async () => {
         try {
             setLoading(true);
-            const response = await axios.get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?id=${id}&language=pt`);
+            const response = await axios.
+                get(`https://db.ygoprodeck.com/api/v7/cardinfo.php?id=${id}&language=pt`);
             const jsonData = response.data;
             setCardData(jsonData.data);
         } catch (error) {
@@ -34,14 +36,14 @@ const DescCards = ({ route }) => {
     const [isFlipped, setIsFlipped] = useState(false);
 
     const flipImageAnimation = () => {
-            Animated.spring(animatedValue, {
-                toValue: 180,
-                tension: 10,
-                friction: 8,
-                useNativeDriver: true,
-            }).start(() => {
-                setIsFlipped(!isFlipped);
-            });
+        Animated.spring(animatedValue, {
+            toValue: 180,
+            tension: 10,
+            friction: 8,
+            useNativeDriver: true,
+        }).start(() => {
+            setIsFlipped(!isFlipped);
+        });
     };
 
     const setInterpolate = animatedValue.interpolate({
@@ -57,8 +59,7 @@ const DescCards = ({ route }) => {
         <SafeAreaView style={style.containerSafe}>
             <ImageBackground
                 source={require('../img/DescImgBK.jpeg')}
-                style={style.imageBG}
-            >
+                style={style.imageBG}>
                 {loading ? (
                     <View style={style.loading}>
                         <Text style={style.textLoading}>Loading...</Text>
@@ -66,28 +67,28 @@ const DescCards = ({ route }) => {
                     </View>
                 ) : (
                     <View>
+                        <TouchableOpacity onPress={() => navigation.goBack()} style={style.backButton}>
+                            <Icon name="arrow-left" size={30} color="#fff" />
+                        </TouchableOpacity>
                         {cardData.map((card, index) => (
                             <ScrollView key={index}>
                                 <TouchableOpacity onPress={flipImageAnimation}>
-                                    {
-                                        isFlipped === false ? (<Animated.Image style={[style.img, rotateYAnimatedStyle]} source={require('../img/ReverseCard.jpg')} />)
-                                        : (<Animated.Image style={[style.img, rotateYAnimatedStyle]} source={{ uri: card.card_images[0].image_url}}/>)
-                                    }
+                                    {isFlipped === false ? (<Animated.Image style={[
+                                        style.img, rotateYAnimatedStyle]} 
+                                        source={require('../img/ReverseCard.jpg')} />)
+                                        : (<Animated.Image style={[style.img, rotateYAnimatedStyle]} 
+                                            source={{ uri: card.card_images[0].image_url }} />)}
                                 </TouchableOpacity>
                                 <View style={style.containerCSS}>
                                     <Text style={style.textCSS}>Nome: {card.name}</Text>
                                     <Text style={style.textCSS}>Tipo: {card.type}</Text>
                                     <View>
-                                        {
-                                            card.type !== 'Spell Card' && card.type !== 'Trap Card' 
+                                        {card.type !== 'Spell Card' && card.type !== 'Trap Card'
                                             ? (<Text style={style.textCSS}>Atributo: {card.attribute}</Text>)
-                                            : (<></>)
-                                        }
+                                            : (<></>)}
                                         <View>
-                                            {
-                                                card.archetype != null ? (<Text style={style.textCSS}>Arquétipo: {card.archetype}</Text>)
-                                                : (<></>)
-                                            }
+                                            { card.archetype != null ? (<Text style={style.textCSS}>
+                                                Arquétipo: {card.archetype}</Text>) : (<></>)}
                                         </View>
                                         <Text style={style.textCSS}>Raça: {card.race}</Text>
                                     </View>
@@ -96,35 +97,32 @@ const DescCards = ({ route }) => {
                                             <View>
                                                 <View style={style.rowStatus}>
                                                     <View>
-                                                        {
-                                                            card.atk != null ? (<Text style={[style.textCSS, style.textRowPadi]}>Ataque: {card.atk}</Text>)
-                                                            : (<></>)
-                                                        }
+                                                        {card.atk != null ? (<Text style={[style.textCSS, 
+                                                            style.textRowPadi]}>
+                                                            Ataque: {card.atk}</Text>): (<></>)}
                                                     </View>
                                                     <View>
-                                                        {
-                                                            card.def != null ? (<Text style={[style.textCSS, style.textRowPadi]}>Defesa: {card.def}</Text>)
-                                                            : (<></>)
-                                                        }
+                                                        {card.def != null ? (<Text style={[style.textCSS, 
+                                                            style.textRowPadi]}>
+                                                            Defesa: {card.def}</Text>) : (<></>)}
                                                     </View>
                                                     <View>
-                                                        {
-                                                         card.level != null ? (<Text style={style.textCSS}>Level: {card.level}</Text>)
-                                                                            : (<Text style={style.textCSS}>Link: {card.linkval}</Text>)
-                                                        }
+                                                        {card.level != null ? (<Text style={style.textCSS}>
+                                                            Level: {card.level}</Text>) : (<Text style={
+                                                                style.textCSS}>
+                                                            Link: {card.linkval}</Text>)}
                                                     </View>
                                                 </View>
                                             </View>
-                                        )
-                                        : (<></>)
+                                        ) : (<></>)
                                     }
                                     <View>
-                                        <Text style={[style.textCSS, style.descJust]}>Descrição: {card.desc}</Text> 
+                                        <Text style={[style.textCSS, style.descJust]}>
+                                            Descrição: {card.desc}</Text>
                                     </View>
                                 </View>
                             </ScrollView>
                         ))}
-                        {/* <DescButton title={'Back Page'} onPressButton={} /> */}
                     </View>
                 )}
             </ImageBackground>
@@ -187,7 +185,13 @@ const style = StyleSheet.create({
     },
     descJust: {
         textAlign: 'justify',
-    }
-})
+    },
+    backButton: {
+        position: 'absolute',
+        top: 50,
+        left: 0,
+        zIndex: 1,
+    },
+});
 
 export default DescCards;
