@@ -108,11 +108,11 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     imageCard: {
-        marginTop: 5,
         width: '90%',
-        height: '81%',
+        height: '60%',
         alignSelf: 'center',
-        resizeMode: 'contain'
+        resizeMode: 'contain',
+        marginBottom: 5,
     },
     containerSafe: {
         flex: 1,
@@ -135,7 +135,7 @@ const style = StyleSheet.create({
     },
     containerCards: {
         width: 180,
-        height: 400,
+        height: 280,
         opacity: 0.8,
         backgroundColor: '#e5a040',
         borderRadius: 10,
